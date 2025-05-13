@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/05 18:24:28 by tony              #+#    #+#             */
-/*   Updated: 2025/04/03 11:43:44 by toroman          ###   ########.fr       */
+/*   Created: 2025/05/12 11:33:34 by toroman           #+#    #+#             */
+/*   Updated: 2025/05/13 18:16:18 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/libft.h"
+#include "philo.h"
+
+int	ft_num(char **str)
+{
+	int i;
+	int	j;
+
+	i = 1;
+	while(str[i])
+	{
+		j = 0;
+		while(str[i][j])
+		{
+			if (str[i][j] >= '0' && str[i][j] <= '9')
+				j++;
+			else
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 
 int	ft_atoi(const char *nptr)
 {
@@ -36,10 +58,24 @@ int	ft_atoi(const char *nptr)
 	}
 	return (result * signe);
 }
-//int	main (int ac, char **av)
-//{
-//	if (ac == 2)
-//	{
-//		printf("%d\n", ft_atoi(av[1]));
-//	}
-//}
+
+int	ft_parsing(int	ac, char **av, t_data *data)
+{
+	if (ac != 5 && ac != 6)
+	{
+		printf("Error no argument valid");
+		return (1);
+	}
+	if (ft_num(av))
+		{
+			printf("Error it not digit\n");
+			return (1);
+		}
+	data->nb_of_philo = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
+	if (ac == 6)
+		data->must_to_eat = ft_atoi(av[5]);
+	return (0);
+}
