@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/13 18:15:29 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/13 19:02:32 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ typedef struct s_philo
 	int	philosophe;
 	bool	has_eating;
 	bool	has_thinking;
+	pthread_mutex_t	*left_mutex;
+	pthread_mutex_t	*right_mutex;
+
 }		t_philo;
 
 int	ft_num(char **str);
