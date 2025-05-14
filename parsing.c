@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:33:34 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/13 19:09:20 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/14 16:20:12 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,7 @@ int	ft_parsing(int	ac, char **av, t_data *data)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		data->must_to_eat = ft_atoi(av[5]);
+	init_philo(data);
+	ft_routine(data);
 	return (0);
 }

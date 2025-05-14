@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:21:47 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/13 19:08:24 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/14 18:05:02 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,27 @@ void	init_philo(t_data *data)
 		data->philo[i].has_eating = false;
 		pthread_mutex_init(&data->fork_mutex[i], NULL);
 		data->philo[i].left_mutex = &data->fork_mutex[i];
-		data->philo[i].right_mutex = &data->fork_mutex[(i + 1) % data->nb_of_philo]; 
+		data->philo[i].right_mutex = &data->fork_mutex[(i + 1)
+			% data->nb_of_philo];
 		i++;
 	}
 }
 
-//void	ft_routine(t_data *data)
-//{
-//	while(1)
-//	{
-//		pthread_mutex_lock(&data->fork_mutex[data->philo->fork_left]);
-//		printf("%d has taken left fork\n", data->philo->philosophe);
-//	}
-//}
+void	ft_routine(t_data *data)
+{
+	int	i;
+	//pthread_create();
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(data->philo[i].left_mutex);
+		printf("the philo num %d take left fork\n", data->philo->philosophe);
+		pthread_mutex_lock(data->philo[i].right_mutex);
+		printf("the philo num %d take right fork\n", data->philo->philosophe);
+		printf("the philo num %d has eating\n", data->philo->philosophe);
+		data->philo->has_eating = true;
+		pthread_mutex_unlock(data->philo[i].left_mutex);
+		pthread_mutex_unlock(data->philo[i].right_mutex);
+		//i++;
+	}
+}
