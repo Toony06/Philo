@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/20 16:49:18 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/20 17:16:13 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,33 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-typedef	struct s_data
+typedef struct s_data
 {
-	int	nb_of_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	must_to_eat;
-	struct s_philo *philo;
-	pthread_mutex_t *fork_mutex;
+	int				nb_of_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				must_to_eat;
+	struct s_philo	*philo;
+	pthread_mutex_t	*fork_mutex;
 }	t_data;
 
 typedef struct s_philo
 {
-	int	fork_right;
-	int	fork_left;
-	int	philosophe;
-	int	eat_count;
-	long	last_meal_time;
-	bool	has_eating;
-	bool	has_thinking;
-	pthread_t	thread1;
-	struct s_data *data;
+	int				fork_right;
+	int				fork_left;
+	int				philosophe;
+	int				eat_count;
+	long			last_meal_time;
+	bool			has_eating;
+	bool			has_thinking;
+	pthread_t		thread1;
+	struct s_data	*data;
 }	t_philo;
 
-int	ft_num(char **str);
-int	ft_atoi(const char *nptr);
-int	ft_parsing(int	ac, char **av, t_data *data);
+int		ft_num(char **str);
+int		ft_atoi(const char *nptr);
+int		ft_parsing(int ac, char **av, t_data *data);
 void	init_philo(t_data *data);
 void	*ft_routine(void *ptr);
 int		main(int ac, char **av);

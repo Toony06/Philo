@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:33:34 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/15 18:34:59 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/20 18:01:39 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	ft_num(char **str)
 {
-	int i;
+	int	i;
 	int	j;
 
 	i = 1;
-	while(str[i])
+	while (str[i])
 	{
 		j = 0;
-		while(str[i][j])
+		while (str[i][j])
 		{
 			if (str[i][j] >= '0' && str[i][j] <= '9')
 				j++;
@@ -32,7 +32,6 @@ int	ft_num(char **str)
 	}
 	return (0);
 }
-
 
 int	ft_atoi(const char *nptr)
 {
@@ -59,7 +58,7 @@ int	ft_atoi(const char *nptr)
 	return (result * signe);
 }
 
-int	ft_parsing(int	ac, char **av, t_data *data)
+int	ft_parsing(int ac, char **av, t_data *data)
 {
 	if (ac != 5 && ac != 6)
 	{
@@ -67,10 +66,10 @@ int	ft_parsing(int	ac, char **av, t_data *data)
 		return (1);
 	}
 	if (ft_num(av))
-		{
-			printf("Error it not digit\n");
-			return (1);
-		}
+	{
+		printf("Error it not digit\n");
+		return (1);
+	}
 	data->nb_of_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
