@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:51:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/13 18:11:59 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/20 16:51:57 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,21 @@
 
 int	main(int ac, char **av)
 {
-	t_data *data;
+	t_data data;
+	int i;
+
+	i = 0;
 
 	if (ac)
 	{
-		data = malloc(sizeof(t_data));
-		ft_parsing(ac, av, data);
+		ft_parsing(ac, av, &data);
+		init_mutex(&data);
+		init_philo(&data);
 	}
+	while (i < data.nb_of_philo)
+	{
+		pthread_join(data.philo[i].thread1, NULL);
+		i++;
+	}
+	return (0);
 }

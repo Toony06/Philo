@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/14 18:04:20 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/20 16:49:18 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,20 @@ typedef struct s_philo
 	int	fork_right;
 	int	fork_left;
 	int	philosophe;
+	int	eat_count;
+	long	last_meal_time;
 	bool	has_eating;
 	bool	has_thinking;
-	pthread_mutex_t	*left_mutex;
-	pthread_mutex_t	*right_mutex;
-	pthread_t	thread;
-
+	pthread_t	thread1;
+	struct s_data *data;
 }	t_philo;
 
 int	ft_num(char **str);
 int	ft_atoi(const char *nptr);
 int	ft_parsing(int	ac, char **av, t_data *data);
 void	init_philo(t_data *data);
-void	ft_routine(t_data *data);
-int	main(int ac, char **av);
+void	*ft_routine(void *ptr);
+int		main(int ac, char **av);
+void	init_mutex(t_data *data);
+long	get_time(void);
 #endif
