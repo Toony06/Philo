@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:21:47 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/22 15:30:27 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:56:14 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	init_philo(t_data *data)
 				ft_routine, &data->philo[i]);
 		i++;
 	}
-	pthread_create(&data->philo->check_monitor, NULL,
-			monitor, &data);
 }
 
 void	init_mutex(t_data *data)
@@ -60,7 +58,7 @@ void	*ft_routine(void *ptr)
 		usleep(5000);
 	while (1)
 	{	pthread_mutex_lock(&philo->data->is_dead_mutex);
-		if (philo->data->is_dead)
+		if (philo->data->is_dead == true)
 		{
 			pthread_mutex_unlock(&philo->data->is_dead_mutex);
 			break;
@@ -81,6 +79,13 @@ long	get_time(void)
 
 void routine_eat(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead == true)
+	{
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return;
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_left]);
 	printf("the philo num %d take left fork\n", philo->philosophe);
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_right]);
@@ -90,11 +95,25 @@ void routine_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->meal_check_mutex);
 	printf("the philo num %d has eating\n", philo->philosophe);
 	philo->eat_count++;
-	usleep(philo->data->time_to_eat * 5000);
+	usleep(philo->data->time_to_eat * 1000);
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead == true)
+	{
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return;
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_left]);
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_right]);
 	printf("philo %d is sleeping\n", philo->philosophe);
-	usleep(philo->data->time_to_sleep * 5000);
+	usleep(philo->data->time_to_sleep * 1000);
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead == true)
+	{
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return;
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	printf("philo %d is thinking\n", philo->philosophe);
 }
 
@@ -116,6 +135,7 @@ void	*monitor(void *ptr)
 				pthread_mutex_lock(&data->is_dead_mutex);
 				data->is_dead = true;
 				pthread_mutex_unlock(&data->is_dead_mutex);
+				printf("Philo num %d its dead\n", data->philo[i].philosophe);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&data->meal_check_mutex);
