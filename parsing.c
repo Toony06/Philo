@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:33:34 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/20 18:01:39 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/22 14:10:31 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,6 @@ int	ft_atoi(const char *nptr)
 
 int	ft_parsing(int ac, char **av, t_data *data)
 {
-	if (ac != 5 && ac != 6)
-	{
-		printf("Error no argument valid\n");
-		return (1);
-	}
 	if (ft_num(av))
 	{
 		printf("Error it not digit\n");

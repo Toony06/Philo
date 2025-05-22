@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/20 17:16:13 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:02:02 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ typedef struct s_data
 	int				must_to_eat;
 	struct s_philo	*philo;
 	pthread_mutex_t	*fork_mutex;
+	pthread_mutex_t	meal_check_mutex;
+	bool			is_dead;
+	pthread_mutex_t	is_dead_mutex;
 }	t_data;
 
 typedef struct s_philo
@@ -42,6 +45,7 @@ typedef struct s_philo
 	bool			has_eating;
 	bool			has_thinking;
 	pthread_t		thread1;
+	pthread_t		check_monitor;
 	struct s_data	*data;
 }	t_philo;
 
@@ -53,4 +57,6 @@ void	*ft_routine(void *ptr);
 int		main(int ac, char **av);
 void	init_mutex(t_data *data);
 long	get_time(void);
+void 	routine_eat(t_philo *philo);
+void	*monitor(void *ptr);
 #endif

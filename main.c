@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:51:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/20 18:05:24 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:02:26 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int	main(int ac, char **av)
 
 	i = 0;
 
+	if (ac != 5 && ac != 6)
+	{
+		printf("Error no argument valid\n");
+		return (1);
+	}
 	if (ac)
 	{
 		ft_parsing(ac, av, &data);
