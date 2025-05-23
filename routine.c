@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42.fr>            +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:21:47 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/23 18:59:30 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/23 19:24:49 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	*ft_routine(void *ptr)
 	t_philo	*philo;
 
 	philo = (t_philo *)ptr;
-	
 	if (philo->philosophe % 2 == 0)
 		usleep(5000);
 	while (1)
-	{	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	{
+		pthread_mutex_lock(&philo->data->is_dead_mutex);
 		if (philo->data->is_dead == true)
 		{
 			pthread_mutex_unlock(&philo->data->is_dead_mutex);
@@ -83,6 +83,8 @@ void routine_eat(t_philo *philo)
 		return;
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_left]);
 	printf("the philo num %d take left fork\n", philo->philosophe);
+	if (check_die(philo) == 1)
+		return;
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_right]);
 	printf("the philo num %d take right fork\n", philo->philosophe);
 	pthread_mutex_lock(&philo->data->meal_check_mutex);
@@ -94,6 +96,8 @@ void routine_eat(t_philo *philo)
 	if (check_die(philo) == 1)
 		return;
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_left]);
+	if (check_die(philo) == 1)
+		return;
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_right]);
 	printf("philo %d is sleeping\n", philo->philosophe);
 	usleep(philo->data->time_to_sleep * 1000);
