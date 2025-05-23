@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
+/*   By: toroman <toroman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:21:47 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/22 15:56:14 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/23 18:59:30 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,8 @@ long	get_time(void)
 
 void routine_eat(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->is_dead_mutex);
-	if (philo->data->is_dead == true)
-	{
-		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+	if (check_die(philo) == 1)
 		return;
-	}
-	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_left]);
 	printf("the philo num %d take left fork\n", philo->philosophe);
 	pthread_mutex_lock(&philo->data->fork_mutex[philo->fork_right]);
@@ -96,24 +91,14 @@ void routine_eat(t_philo *philo)
 	printf("the philo num %d has eating\n", philo->philosophe);
 	philo->eat_count++;
 	usleep(philo->data->time_to_eat * 1000);
-	pthread_mutex_lock(&philo->data->is_dead_mutex);
-	if (philo->data->is_dead == true)
-	{
-		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+	if (check_die(philo) == 1)
 		return;
-	}
-	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_left]);
 	pthread_mutex_unlock(&philo->data->fork_mutex[philo->fork_right]);
 	printf("philo %d is sleeping\n", philo->philosophe);
 	usleep(philo->data->time_to_sleep * 1000);
-	pthread_mutex_lock(&philo->data->is_dead_mutex);
-	if (philo->data->is_dead == true)
-	{
-		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+	if (check_die(philo) == 1)
 		return;
-	}
-	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	printf("philo %d is thinking\n", philo->philosophe);
 }
 
@@ -144,4 +129,16 @@ void	*monitor(void *ptr)
 		usleep(5000);
 	}
 	return (NULL);
+}
+
+int	check_die(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead == true)
+	{
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
+	return (0);
 }

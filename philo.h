@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/22 15:50:43 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/23 18:45:33 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void	init_mutex(t_data *data);
 long	get_time(void);
 void 	routine_eat(t_philo *philo);
 void	*monitor(void *ptr);
+int		check_die(t_philo *philo);
 #endif
