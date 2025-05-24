@@ -1,12 +1,24 @@
 # **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/24 16:43:38 by toroman           #+#    #+#              #
+#    Updated: 2025/05/24 17:05:20 by toroman          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
 #                                PHILOSOPHERS                                  #
 # **************************************************************************** #
 
-SRCS = parsing.c routine.c main.c 
+SRCS = parsing.c routine.c main.c mutex.c
 OBJS = ${SRCS:.c=.o}
 NAME = philo
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 
+CFLAGS = -Wall -Wextra -Werror -g3
 RM = rm -f
 
 # Couleurs ANSI

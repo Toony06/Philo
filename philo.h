@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 09:51:14 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/23 18:45:33 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/24 15:54:57 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	*ft_routine(void *ptr);
 int		main(int ac, char **av);
 void	init_mutex(t_data *data);
 long	get_time(void);
-void 	routine_eat(t_philo *philo);
+int 	routine_eat(t_philo *philo);
 void	*monitor(void *ptr);
 int		check_die(t_philo *philo);
+void	check_alone(t_philo *philo);
+void	release_fork(t_philo *philo);
+int		take_fork(t_philo *philo);
 #endif

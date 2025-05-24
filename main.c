@@ -6,7 +6,7 @@
 /*   By: toroman <toroman@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 14:51:33 by toroman           #+#    #+#             */
-/*   Updated: 2025/05/23 19:18:10 by toroman          ###   ########.fr       */
+/*   Updated: 2025/05/24 16:24:58 by toroman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	main(int ac, char **av)
 	pthread_join(data.monitor_thread, NULL);
 	while (i < data.nb_of_philo)
 	{
+		if (check_die(data.philo) == 1)
+			break;
 		pthread_join(data.philo[i].thread1, NULL);
 		i++;
 	}
